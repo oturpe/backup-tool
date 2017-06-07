@@ -1,4 +1,4 @@
-## Oturpe backup tool
+## Backup tool
 
 Linux tool for backing up data to a remote server using [rsync][rsync].
 
@@ -6,10 +6,13 @@ Linux tool for backing up data to a remote server using [rsync][rsync].
 
 ### Setup
 
-1. Create a backup directory called e.g. `backup` in your home directory.
-2. Copy the `backup` script to backup directory.
-3. Create directories you want to backup in the backup directory. In case you have already directories in other places, moving them to backup directory and symlinking to original locations might be a convenient solution.
-4. Copy sample configuration file `.backup` to backup directory and modify it to include the folders. 
+1. Ensure that [ssh keys] are properly set up between local and remote hosts.
+2. Create a backup directory called e.g. `backup` in your home directory.
+3. Copy the `backup` script to backup directory.
+4. Create directories you want to backup in the backup directory. In case you have already directories in other places, moving them to backup directory and symlinking to original locations might be a convenient solution.
+5. Copy sample configuration file `.backup` to backup directory and set correct remote host credentials and backup file list there.
+
+[ssh keys]: https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2
 
 ### Manual usage
 
@@ -17,14 +20,14 @@ The simplest way to use this tool is to manually execute backup when needed. Thi
 
 ``` 
 $ cd ~/backup
-$ ./oturpe-backup
+$ ./backup
 ```
 
 Files are restored in the following way:
 
 ```
 $ cd ~/backup
-$ ./oturpe-backup restore
+$ ./backup restore
 ```
 
 ### Using `systemd` timer
