@@ -1,0 +1,11 @@
+#Example of .backup file defining files to back up
+
+# List of directories and files to back up
+files=(Documents Music Photos .backup)
+
+# Remote host address
+remoteHost=example.com
+# Login user for remote host
+remoteUser=myuser
+# Backup directory at remote host
+remoteDir=storage/backup

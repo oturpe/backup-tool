@@ -1,0 +1,7 @@
+[Unit]
+Description=Backup personal files
+
+[Service]
+Type=simple
+WorkingDirectory=/home/username/backup
+ExecStart=/home/username/backup/backup

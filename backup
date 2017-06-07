@@ -1,0 +1,46 @@
+#!/bin/bash
+
+#Constants
+localDir=./
+rsyncOptions=-rlptgoDv
+
+#Backup configuration, see sample file for expected contents
+source .backup
+
+#Read arguments
+command="$1"
+shift
+
+# TODO: Check that restore restores the correct data
+# TODO: Fix backup to consider files variable
+
+displayHelp() {
+    echo "Oturpe backup tool."
+    echo ""
+    echo "Connects to remote server using rsync to send and receive files defined in the ./.backup configuration file."
+    echo ""
+    echo "Usage: backup [backup|restore|help]"
+}
+
+case $command in
+    restore)
+        echo "Restoring backup from ${remoteConnection}"
+        remoteFiles=( "${files[@]/#/:${remoteDir}}" )
+        rsync ${rsyncOptions} ${remoteUser}@${remoteHost}"${remoteFiles[@]}" ${localDir}
+        ;;
+    #Backup is the default
+    backup|"")
+        remoteConnection=${remoteUser}@${remoteHost}:${remoteDir}
+
+        echo "Backing up to ${remoteUser}@${remoteHost}:${remoteDir}"
+        localFiles=( "${files[@]/#/${localDir}}" )
+        rsync ${rsyncOptions} "${localFiles[@]}" ${remoteConnection}
+        ;;
+    help)
+        displayHelp
+        ;;
+    *)
+        echo "Unknown command ${command}"
+        displayHelp
+        ;;
+esac
